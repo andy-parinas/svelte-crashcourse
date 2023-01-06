@@ -4,20 +4,23 @@
     import FilterUser from "./FilterUser.svelte";
 
 
-    const users = [
+    let users = [
         {
+            id: 1,
             image: user1,
             name: "John Doe",
             email: "john@email.com",
             active: true
         },
         {
+            id: 2,
             image: user1,
             name: "Steve McQueen",
             email: "steve@email.com",
             active: false
         },
         {
+            id: 3,
             image: user1,
             name: "Bill Gates",
             email: "bill@email.com",
@@ -30,7 +33,7 @@
         return users
     }
 
-    let filteredUsers = users
+    $: filteredUsers = users
     const filter = (event) => {
         const filter = event.detail
 
@@ -45,6 +48,10 @@
         })
     }
 
+    const remove = ({detail}) => {
+        users = users.filter(user => user.id !== detail)
+    }
+
   </script>
   
   <div class="m-5">
@@ -52,7 +59,8 @@
         <FilterUser on:filter={filter} />
      
         {#each filteredUsers as user, i}
-        <User user={user} index={i} />
+
+        <User on:remove={remove} user={user} index={i} />
        
         {:else}
             <h2 class="text-xl text-center mt-10">No Users Found</h2>
