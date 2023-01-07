@@ -8,7 +8,7 @@
 </script>
 
 
-<div class="flex items-center mb-5">
+<div class="flex items-center">
     <h3 class="mr-4">Select User Type</h3>
     <select on:change={filter}
         name="user-filter" 
